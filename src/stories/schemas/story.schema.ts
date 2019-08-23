@@ -1,7 +1,11 @@
 import { Schema } from 'mongoose';
 
-export const StorySchema = new Schema({
+const StorySchema = new Schema({
     title: {
+        type: String,
+        required: true,
+    },
+    banner: {
         type: String,
         required: true,
     },
@@ -12,5 +16,8 @@ export const StorySchema = new Schema({
         type: String,
         required: true,
     },
-    tags: [String],
+    // TODO: Find out why [String] doesn't work for tests
+    tags: [Object],
 });
+
+export { StorySchema };

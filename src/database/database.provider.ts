@@ -6,6 +6,7 @@ export const databaseProviders = [
         useFactory: async (configService: ConfigService) => ({
             uri: configService.get('DATABASE_URI'),
             useNewUrlParser: true,
+            useFindAndModify: false,
         }),
         inject: [ConfigService],
     })
