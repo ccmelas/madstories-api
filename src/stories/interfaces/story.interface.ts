@@ -6,4 +6,5 @@ export class Story extends Document {
     readonly content: string;
     readonly banner: string;
     readonly tags: string[];
+    readonly publishedAt: number;
 }

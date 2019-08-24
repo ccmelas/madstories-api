@@ -111,6 +111,27 @@ describe('StoriesController', () => {
         });
     });
 
+    describe('PATCH /api/stories/:id/publish', () => {
+        it('should successfully publish an existing story', async () => {
+            const storyToPublish = dbStories[0];
+            const res = await request(app.getHttpServer())
+                .patch(`/api/stories/${ storyToPublish._id }/publish`)
+                .send()
+                .expect(200);
+
+            expect(res.body.data.publishedAt).toBeTruthy();
+            const publishedStory = await storyModel.findById(storyToPublish._id);
+            expect(publishedStory.publishedAt).toBeTruthy();
+        });
+
+
+        it('returns a 404 when an invalid object id is passed', () => {
+            return request(app.getHttpServer())
+                                .patch(`/api/stories/12345/publish`)
+                                .expect(404);
+        });
+    });
+
 
     describe('DELETE /api/stories/:id', () => {
         it('should successfully delete an existing story', async () => {

@@ -36,6 +36,13 @@ export class StoriesController {
         return story;
     }
 
+    @Patch(':id/publish')
+    async publish(@Param('id', new ValidateObjectIdPipe()) id: string): Promise<Story> {
+        const story = await this.storiesService.update(id, { publishedAt: Date.now() });
+        if (!story) throw new NotFoundException('Story not found');
+        return story;
+    }
+
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     async delete(@Param('id', new ValidateObjectIdPipe()) id: string): Promise<any> {

@@ -8,6 +8,12 @@ import { story } from '../../test/data/index';
 
 class StoryModelMock {}
 
+/**
+ * Mock date.now
+ */
+const publishedAt = 123456;
+Date.now = jest.fn(() => publishedAt);
+
 describe('StoriesController', () => {
    let storiesController: StoriesController;
    let storiesService: StoriesService;
@@ -73,6 +79,15 @@ describe('StoriesController', () => {
             await storiesController.delete(id);
             expect(storiesService.delete).toHaveBeenCalled();
             expect(storiesService.delete).toHaveBeenCalledWith(id);
+        });
+    });
+
+    describe('publish', () => {
+        it('should correctly call the storiesService "update" method', async () => {
+            const id = "12345";
+            await storiesController.publish(id);
+            expect(storiesService.update).toHaveBeenCalled();
+            expect(storiesService.update).toHaveBeenCalledWith(id, { publishedAt });
         });
     });
 });

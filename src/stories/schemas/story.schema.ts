@@ -16,6 +16,7 @@ const StorySchema = new Schema({
         type: String,
         required: true,
     },
+    publishedAt: Number,
     // TODO: Find out why [String] doesn't work for tests
     tags: [Object],
 });
